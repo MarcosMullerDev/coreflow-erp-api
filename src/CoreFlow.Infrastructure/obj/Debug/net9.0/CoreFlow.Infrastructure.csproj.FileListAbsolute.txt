@@ -1,0 +1,17 @@
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Infrastructure\bin\Debug\net9.0\CoreFlow.Infrastructure.deps.json
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Infrastructure\bin\Debug\net9.0\CoreFlow.Infrastructure.dll
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Infrastructure\bin\Debug\net9.0\CoreFlow.Infrastructure.pdb
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Infrastructure\bin\Debug\net9.0\CoreFlow.Application.dll
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Infrastructure\bin\Debug\net9.0\CoreFlow.Domain.dll
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Infrastructure\bin\Debug\net9.0\CoreFlow.Application.pdb
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Infrastructure\bin\Debug\net9.0\CoreFlow.Domain.pdb
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Infrastructure\obj\Debug\net9.0\CoreFlow.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Infrastructure\obj\Debug\net9.0\CoreFlow.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Infrastructure\obj\Debug\net9.0\CoreFlow.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Infrastructure\obj\Debug\net9.0\CoreFlow.Infrastructure.AssemblyInfo.cs
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Infrastructure\obj\Debug\net9.0\CoreFlow.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Infrastructure\obj\Debug\net9.0\CoreFlow.C8A70E8D.Up2Date
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Infrastructure\obj\Debug\net9.0\CoreFlow.Infrastructure.dll
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Infrastructure\obj\Debug\net9.0\refint\CoreFlow.Infrastructure.dll
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Infrastructure\obj\Debug\net9.0\CoreFlow.Infrastructure.pdb
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Infrastructure\obj\Debug\net9.0\ref\CoreFlow.Infrastructure.dll

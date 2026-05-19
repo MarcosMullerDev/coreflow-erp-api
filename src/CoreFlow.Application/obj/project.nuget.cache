@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "CGE01r7bGqw=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\marco\\coreflow-erp-api\\src\\CoreFlow.Application\\CoreFlow.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\marco\\.nuget\\packages\\fluentvalidation\\11.11.0\\fluentvalidation.11.11.0.nupkg.sha512"
+  ],
+  "logs": []
+}
