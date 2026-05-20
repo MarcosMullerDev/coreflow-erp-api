@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace CoreFlow.Api.Controllers;
 
 [ApiController]
-[Authorize(Roles = "Admin")]
+// [Authorize(Roles = "Admin")]
 [Route("api/[controller]")]
 public class CompaniesController : ControllerBase
 {
