@@ -9,3 +9,4 @@ C:\Users\marco\coreflow-erp-api\src\CoreFlow.Domain\obj\Debug\net9.0\CoreFlow.Do
 C:\Users\marco\coreflow-erp-api\src\CoreFlow.Domain\obj\Debug\net9.0\refint\CoreFlow.Domain.dll
 C:\Users\marco\coreflow-erp-api\src\CoreFlow.Domain\obj\Debug\net9.0\CoreFlow.Domain.pdb
 C:\Users\marco\coreflow-erp-api\src\CoreFlow.Domain\obj\Debug\net9.0\ref\CoreFlow.Domain.dll
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Domain\obj\Debug\net9.0\CoreFlow.Domain.sourcelink.json

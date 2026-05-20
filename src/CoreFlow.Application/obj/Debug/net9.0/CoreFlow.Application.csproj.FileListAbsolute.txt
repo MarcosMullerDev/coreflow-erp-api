@@ -13,3 +13,4 @@ C:\Users\marco\coreflow-erp-api\src\CoreFlow.Application\obj\Debug\net9.0\CoreFl
 C:\Users\marco\coreflow-erp-api\src\CoreFlow.Application\obj\Debug\net9.0\refint\CoreFlow.Application.dll
 C:\Users\marco\coreflow-erp-api\src\CoreFlow.Application\obj\Debug\net9.0\CoreFlow.Application.pdb
 C:\Users\marco\coreflow-erp-api\src\CoreFlow.Application\obj\Debug\net9.0\ref\CoreFlow.Application.dll
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Application\obj\Debug\net9.0\CoreFlow.Application.sourcelink.json

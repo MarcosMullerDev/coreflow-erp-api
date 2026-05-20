@@ -1,0 +1,33 @@
+services:
+  coreflow-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: coreflow-api
+    ports:
+      - "5005:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: Host=coreflow-db;Port=5432;Database=coreflow_erp;Username=postgres;Password=postgres
+      Jwt__Key: CORE_FLOW_SUPER_SECRET_KEY_2026_FOR_AUTHENTICATION_WITH_JWT_TOKEN_GENERATION
+      Jwt__Issuer: CoreFlowApi
+      Jwt__Audience: CoreFlowClient
+    depends_on:
+      - coreflow-db
+
+  coreflow-db:
+    image: postgres:16
+    container_name: coreflow-db
+    restart: always
+    environment:
+      POSTGRES_DB: coreflow_erp
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - coreflow_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  coreflow_postgres_data:
