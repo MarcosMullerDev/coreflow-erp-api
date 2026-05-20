@@ -1,25 +1,26 @@
+using CoreFlow.Domain.Common;
+
 namespace CoreFlow.Domain.Entities;
 
-public class Company
+public class Company : BaseEntity
 {
-    public Guid Id { get; private set; }
     public string Name { get; private set; } = string.Empty;
     public string Document { get; private set; } = string.Empty;
     public string Email { get; private set; } = string.Empty;
     public string Phone { get; private set; } = string.Empty;
-    public DateTime CreatedAt { get; private set; }
     public bool IsActive { get; private set; }
+    public ICollection<User> Users { get; private set; } = new List<User>();
+    public ICollection<Product> Products { get; private set; } = new List<Product>();
+    public ICollection<Sale> Sales { get; private set; } = new List<Sale>();
 
     private Company() { }
 
     public Company(string name, string document, string email, string phone)
     {
-        Id = Guid.NewGuid();
         Name = name;
         Document = document;
         Email = email;
         Phone = phone;
-        CreatedAt = DateTime.UtcNow;
         IsActive = true;
     }
 
@@ -28,10 +29,14 @@ public class Company
         Name = name;
         Email = email;
         Phone = phone;
+
+        SetUpdated();
     }
 
     public void Deactivate()
     {
         IsActive = false;
+
+        SetUpdated();
     }
 }

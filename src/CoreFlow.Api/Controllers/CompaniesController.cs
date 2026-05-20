@@ -2,10 +2,12 @@ using CoreFlow.Application.Common;
 using CoreFlow.Application.Companies.DTOs;
 using CoreFlow.Application.Companies.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoreFlow.Api.Controllers;
 
 [ApiController]
+[Authorize(Roles = "Admin")]
 [Route("api/[controller]")]
 public class CompaniesController : ControllerBase
 {

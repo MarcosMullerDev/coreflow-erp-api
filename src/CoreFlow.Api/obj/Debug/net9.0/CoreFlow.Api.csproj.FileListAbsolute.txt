@@ -139,3 +139,12 @@ C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\obj\Debug\net9.0\ref\CoreFlow.A
 C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\bin\Debug\net9.0\FluentValidation.dll
 C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\bin\Debug\net9.0\FluentValidation.AspNetCore.dll
 C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\bin\Debug\net9.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\bin\Debug\net9.0\BCrypt-Net-Next.dll
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
