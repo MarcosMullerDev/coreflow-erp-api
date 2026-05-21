@@ -21,6 +21,8 @@ using CoreFlow.Application.Sales.Repositories;
 using CoreFlow.Application.Sales.Services;
 using CoreFlow.Application.Dashboard.Services;
 using CoreFlow.Infrastructure.Dashboard;
+using CoreFlow.Application.Vehicles.Repositories;
+using CoreFlow.Application.Vehicles.Services;
 
 var builder = WebApplication.CreateBuilder(args);
     
@@ -102,6 +104,8 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ISaleRepository, SaleRepository>();
 builder.Services.AddScoped<ISaleService, SaleService>();
+builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
+builder.Services.AddScoped<IVehicleService, VehicleService>();
 
 builder.Services.AddCors(options =>
 {
@@ -117,7 +121,7 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 
-
+app.UseStaticFiles();
 app.UseSwagger();
 app.UseSwaggerUI();
 

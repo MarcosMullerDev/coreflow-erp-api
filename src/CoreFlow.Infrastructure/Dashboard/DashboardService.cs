@@ -3,6 +3,7 @@ using CoreFlow.Application.Dashboard.DTOs;
 using CoreFlow.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using CoreFlow.Application.Dashboard.Services;
+using CoreFlow.Domain.Enums;
 
 namespace CoreFlow.Infrastructure.Dashboard;
 public class DashboardService : IDashboardService
@@ -44,6 +45,56 @@ public class DashboardService : IDashboardService
             TotalSales = totalSales,
             TotalProducts = totalProducts,
             LowStockProducts = lowStockProducts
+        };
+    }
+
+    public async Task<MotorsDashboardSummaryResponse> GetMotorsSummaryAsync()
+    {
+        var companyId = _currentUser.CompanyId;
+
+        var totalVehicles = await _context.Vehicles
+            .CountAsync(v => v.CompanyId == companyId && !v.IsDeleted);
+
+        var availableVehicles = await _context.Vehicles
+            .CountAsync(v =>
+                v.CompanyId == companyId &&
+                !v.IsDeleted &&
+                v.Status == VehicleStatus.Available);
+
+        var reservedVehicles = await _context.Vehicles
+            .CountAsync(v =>
+                v.CompanyId == companyId &&
+                !v.IsDeleted &&
+                v.Status == VehicleStatus.Reserved);
+
+        var soldVehicles = await _context.Vehicles
+            .CountAsync(v =>
+                v.CompanyId == companyId &&
+                !v.IsDeleted &&
+                v.Status == VehicleStatus.Sold);
+
+        var totalInventoryValue = await _context.Vehicles
+            .Where(v =>
+                v.CompanyId == companyId &&
+                !v.IsDeleted &&
+                v.Status == VehicleStatus.Available)
+            .SumAsync(v => (decimal?)v.PurchasePrice) ?? 0;
+
+        var potentialRevenue = await _context.Vehicles
+            .Where(v =>
+                v.CompanyId == companyId &&
+                !v.IsDeleted &&
+                v.Status == VehicleStatus.Available)
+            .SumAsync(v => (decimal?)v.SalePrice) ?? 0;
+
+        return new MotorsDashboardSummaryResponse
+        {
+            TotalVehicles = totalVehicles,
+            AvailableVehicles = availableVehicles,
+            ReservedVehicles = reservedVehicles,
+            SoldVehicles = soldVehicles,
+            TotalInventoryValue = totalInventoryValue,
+            PotentialRevenue = potentialRevenue
         };
     }
 }

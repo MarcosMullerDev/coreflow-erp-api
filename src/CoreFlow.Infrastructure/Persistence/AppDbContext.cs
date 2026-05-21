@@ -15,7 +15,9 @@ public class AppDbContext : DbContext
     public DbSet<Product> Products => Set<Product>();
     public DbSet<Sale> Sales => Set<Sale>();
     public DbSet<SaleItem> SaleItems => Set<SaleItem>();
-
+    public DbSet<Vehicle> Vehicles => Set<Vehicle>();
+    public DbSet<VehicleImage> VehicleImages => Set<VehicleImage>();
+    public DbSet<Lead> Leads => Set<Lead>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Company>(entity =>
@@ -175,6 +177,125 @@ public class AppDbContext : DbContext
             entity.HasOne(i => i.Product)
                 .WithMany()
                 .HasForeignKey(i => i.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+        modelBuilder.Entity<Vehicle>(entity =>
+        {
+            entity.HasKey(v => v.Id);
+
+            entity.Property(v => v.Brand)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.Property(v => v.Model)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.Property(v => v.Year)
+                .IsRequired();
+
+            entity.Property(v => v.ModelYear)
+                .IsRequired();
+
+            entity.Property(v => v.Mileage)
+                .IsRequired();
+
+            entity.Property(v => v.Color)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            entity.Property(v => v.Plate)
+                .IsRequired()
+                .HasMaxLength(20);
+
+            entity.Property(v => v.Chassis)
+                .HasMaxLength(50);
+
+            entity.Property(v => v.FuelType)
+                .IsRequired();
+
+            entity.Property(v => v.TransmissionType)
+                .IsRequired();
+
+            entity.Property(v => v.PurchasePrice)
+                .HasColumnType("decimal(18,2)")
+                .IsRequired();
+
+            entity.Property(v => v.SalePrice)
+                .HasColumnType("decimal(18,2)")
+                .IsRequired();
+
+            entity.Property(v => v.Status)
+                .IsRequired();
+
+            entity.Property(v => v.CreatedAt)
+                .IsRequired();
+
+            entity.Property(v => v.UpdatedAt);
+
+            entity.Property(v => v.IsDeleted)
+                .IsRequired();
+
+            entity.HasOne(v => v.Company)
+                .WithMany(c => c.Vehicles)
+                .HasForeignKey(v => v.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.Property(v => v.IsFeatured)
+                .IsRequired();
+        });
+        modelBuilder.Entity<VehicleImage>(entity =>
+        {
+            entity.HasKey(i => i.Id);
+
+            entity.Property(i => i.FileName)
+                .IsRequired()
+                .HasMaxLength(255);
+
+            entity.Property(i => i.IsPrimary)
+                .IsRequired();
+
+            entity.HasOne(i => i.Vehicle)
+                .WithMany(v => v.Images)
+                .HasForeignKey(i => i.VehicleId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+        modelBuilder.Entity<Lead>(entity =>
+        {
+            entity.HasKey(l => l.Id);
+
+            entity.Property(l => l.Name)
+                .IsRequired()
+                .HasMaxLength(150);
+
+            entity.Property(l => l.Phone)
+                .IsRequired()
+                .HasMaxLength(30);
+
+            entity.Property(l => l.Email)
+                .HasMaxLength(150);
+
+            entity.Property(l => l.Message)
+                .HasMaxLength(1000);
+
+            entity.Property(l => l.Status)
+                .IsRequired();
+
+            entity.Property(l => l.CreatedAt)
+                .IsRequired();
+
+            entity.Property(l => l.UpdatedAt);
+
+            entity.Property(l => l.IsDeleted)
+                .IsRequired();
+
+            entity.HasOne(l => l.Company)
+                .WithMany(c => c.Leads)
+                .HasForeignKey(l => l.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(l => l.Vehicle)
+                .WithMany(v => v.Leads)
+                .HasForeignKey(l => l.VehicleId)
                 .OnDelete(DeleteBehavior.Restrict);
         });
     }

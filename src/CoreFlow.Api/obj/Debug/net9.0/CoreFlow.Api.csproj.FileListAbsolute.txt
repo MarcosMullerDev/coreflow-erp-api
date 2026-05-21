@@ -149,3 +149,4 @@ C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\bin\Debug\net9.0\Microsoft.Iden
 C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\obj\Debug\net9.0\CoreFlow.Api.sourcelink.json
+C:\Users\marco\coreflow-erp-api\src\CoreFlow.Api\bin\Debug\net9.0\CoreFlow.Api.staticwebassets.runtime.json

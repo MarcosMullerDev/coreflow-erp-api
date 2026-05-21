@@ -24,4 +24,12 @@ public class DashboardController : ControllerBase
 
         return Ok(ApiResponse<object>.Ok(result));
     }
+
+    [HttpGet("motors-summary")]
+    public async Task<IActionResult> MotorsSummary()
+    {
+        var result = await _dashboardService.GetMotorsSummaryAsync();
+
+        return Ok(ApiResponse<object>.Ok(result, "Motors dashboard retrieved successfully."));
+    }
 }
