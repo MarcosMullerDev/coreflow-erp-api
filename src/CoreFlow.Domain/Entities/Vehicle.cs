@@ -23,6 +23,19 @@ public class Vehicle : BaseEntity
     public ICollection<VehicleImage> Images { get; private set; } = new List<VehicleImage>();
     public ICollection<Lead> Leads { get; private set; } = new List<Lead>();
     public bool IsFeatured { get; private set; }
+    public VehicleType VehicleType { get; private set; }
+    public VehicleCategory Category { get; private set; }
+    public bool IsSingleOwner { get; private set; }
+    public bool IsBelowFipe { get; private set; }
+    public ICollection<VehicleOptional> Optionals { get; private set; } = new List<VehicleOptional>();
+    public void AddOptional(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            return;
+
+        Optionals.Add(new VehicleOptional(Id, name));
+        SetUpdated();
+    }
     private Vehicle() { }
 
     public Vehicle(
@@ -38,7 +51,11 @@ public class Vehicle : BaseEntity
         FuelType fuelType,
         TransmissionType transmissionType,
         decimal purchasePrice,
-        decimal salePrice)
+        decimal salePrice,
+        VehicleType vehicleType,
+        VehicleCategory category,
+        bool isSingleOwner,
+        bool isBelowFipe)
     {
         CompanyId = companyId;
         Brand = brand;
@@ -55,6 +72,10 @@ public class Vehicle : BaseEntity
         SalePrice = salePrice;
         Status = VehicleStatus.Available;
         IsFeatured = false;
+        VehicleType = vehicleType;
+        Category = category;
+        IsSingleOwner = isSingleOwner;
+        IsBelowFipe = isBelowFipe;
     }
 
     public void MarkAsSold()
@@ -78,6 +99,49 @@ public class Vehicle : BaseEntity
     public void SetFeatured(bool featured)
     {
         IsFeatured = featured;
+        SetUpdated();
+    }
+    public void Update(
+        string brand,
+        string model,
+        int year,
+        int modelYear,
+        int mileage,
+        string color,
+        string plate,
+        string chassis,
+        FuelType fuelType,
+        TransmissionType transmissionType,
+        decimal purchasePrice,
+        decimal salePrice,
+        VehicleType vehicleType,
+        VehicleCategory category,
+        bool isSingleOwner,
+        bool isBelowFipe)
+    {
+        Brand = brand;
+        Model = model;
+        Year = year;
+        ModelYear = modelYear;
+        Mileage = mileage;
+        Color = color;
+        Plate = plate;
+        Chassis = chassis;
+        FuelType = fuelType;
+        TransmissionType = transmissionType;
+        PurchasePrice = purchasePrice;
+        SalePrice = salePrice;
+        VehicleType = vehicleType;
+        Category = category;
+        IsSingleOwner = isSingleOwner;
+        IsBelowFipe = isBelowFipe;
+
+        SetUpdated();
+    }
+
+    public void ClearOptionals()
+    {
+        Optionals.Clear();
         SetUpdated();
     }
 }

@@ -23,6 +23,8 @@ public class VehicleRepository : IVehicleRepository
     {
         return await _context.Vehicles
             .AsNoTracking()
+            .Include(v => v.Images)
+            .Include(v => v.Optionals)
             .Where(v => v.CompanyId == companyId && !v.IsDeleted)
             .OrderByDescending(v => v.CreatedAt)
             .ToListAsync();
@@ -32,6 +34,8 @@ public class VehicleRepository : IVehicleRepository
     {
         return await _context.Vehicles
             .AsNoTracking()
+            .Include(v => v.Images)
+            .Include(v => v.Optionals)
             .FirstOrDefaultAsync(v => v.Id == id && v.CompanyId == companyId && !v.IsDeleted);
     }
 
@@ -42,6 +46,7 @@ public class VehicleRepository : IVehicleRepository
     public async Task<Vehicle?> GetByIdAndCompanyForUpdateAsync(Guid id, Guid companyId)
     {
         return await _context.Vehicles
+            .Include(v => v.Optionals)
             .FirstOrDefaultAsync(v => v.Id == id && v.CompanyId == companyId && !v.IsDeleted);
     }
 }

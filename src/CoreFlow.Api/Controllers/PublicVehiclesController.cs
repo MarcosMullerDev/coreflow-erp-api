@@ -23,6 +23,7 @@ public class PublicVehiclesController : ControllerBase
         var vehicles = await _context.Vehicles
             .AsNoTracking()
             .Include(v => v.Images)
+            .Include(v => v.Optionals)
             .Where(v => !v.IsDeleted && v.Status == VehicleStatus.Available)
             .OrderByDescending(v => v.CreatedAt)
             .Select(v => new
@@ -39,6 +40,14 @@ public class PublicVehiclesController : ControllerBase
                 v.TransmissionType,
                 v.SalePrice,
                 v.IsFeatured,
+                v.VehicleType,
+                v.Category,
+                v.IsSingleOwner,
+                v.IsBelowFipe,
+
+                Optionals = v.Optionals
+                    .Where(o => !o.IsDeleted)
+                    .Select(o => o.Name),
 
                 Images = v.Images.Select(i => new
                 {
@@ -67,6 +76,7 @@ public class PublicVehiclesController : ControllerBase
         var vehicles = await _context.Vehicles
             .AsNoTracking()
             .Include(v => v.Images)
+            .Include(v => v.Optionals)
             .Where(v =>
                 !v.IsDeleted &&
                 v.Status == VehicleStatus.Available &&
@@ -87,6 +97,14 @@ public class PublicVehiclesController : ControllerBase
                 v.TransmissionType,
                 v.SalePrice,
                 v.IsFeatured,
+                v.VehicleType,
+                v.Category,
+                v.IsSingleOwner,
+                v.IsBelowFipe,
+
+                Optionals = v.Optionals
+                    .Where(o => !o.IsDeleted)
+                    .Select(o => o.Name),
 
                 Images = v.Images.Select(i => new
                 {
@@ -115,6 +133,7 @@ public class PublicVehiclesController : ControllerBase
         var vehicle = await _context.Vehicles
             .AsNoTracking()
             .Include(v => v.Images)
+            .Include(v => v.Optionals)
             .FirstOrDefaultAsync(v =>
                 v.Id == id &&
                 !v.IsDeleted &&
@@ -138,6 +157,14 @@ public class PublicVehiclesController : ControllerBase
             vehicle.TransmissionType,
             vehicle.SalePrice,
             vehicle.IsFeatured,
+            vehicle.VehicleType,
+            vehicle.Category,
+            vehicle.IsSingleOwner,
+            vehicle.IsBelowFipe,
+
+            Optionals = vehicle.Optionals
+                .Where(o => !o.IsDeleted)
+                .Select(o => o.Name),
 
             Images = vehicle.Images.Select(i => new
             {

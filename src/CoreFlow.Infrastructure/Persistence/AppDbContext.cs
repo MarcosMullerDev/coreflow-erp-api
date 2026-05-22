@@ -18,6 +18,7 @@ public class AppDbContext : DbContext
     public DbSet<Vehicle> Vehicles => Set<Vehicle>();
     public DbSet<VehicleImage> VehicleImages => Set<VehicleImage>();
     public DbSet<Lead> Leads => Set<Lead>();
+    public DbSet<VehicleOptional> VehicleOptionals => Set<VehicleOptional>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Company>(entity =>
@@ -297,6 +298,19 @@ public class AppDbContext : DbContext
                 .WithMany(v => v.Leads)
                 .HasForeignKey(l => l.VehicleId)
                 .OnDelete(DeleteBehavior.Restrict);
+        });
+        modelBuilder.Entity<VehicleOptional>(entity =>
+        {
+            entity.HasKey(o => o.Id);
+
+            entity.Property(o => o.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.HasOne(o => o.Vehicle)
+                .WithMany(v => v.Optionals)
+                .HasForeignKey(o => o.VehicleId)
+                .OnDelete(DeleteBehavior.Cascade);
         });
     }
 }

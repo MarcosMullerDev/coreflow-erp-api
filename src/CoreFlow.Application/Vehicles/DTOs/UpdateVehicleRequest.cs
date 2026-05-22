@@ -2,7 +2,7 @@ using CoreFlow.Domain.Enums;
 
 namespace CoreFlow.Application.Vehicles.DTOs;
 
-public class CreateVehicleRequest
+public class UpdateVehicleRequest
 {
     public string Brand { get; set; } = string.Empty;
     public string Model { get; set; } = string.Empty;
@@ -16,9 +16,8 @@ public class CreateVehicleRequest
     public TransmissionType TransmissionType { get; set; }
     public decimal PurchasePrice { get; set; }
     public decimal SalePrice { get; set; }
-
-    public VehicleType VehicleType { get; set; } = VehicleType.Car;
-    public VehicleCategory Category { get; set; } = VehicleCategory.Hatch;
+    public VehicleType VehicleType { get; set; }
+    public VehicleCategory Category { get; set; }
     public bool IsSingleOwner { get; set; }
     public bool IsBelowFipe { get; set; }
     public List<string> Optionals { get; set; } = new();
