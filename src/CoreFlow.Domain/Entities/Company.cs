@@ -14,6 +14,7 @@ public class Company : BaseEntity
     public ICollection<Sale> Sales { get; private set; } = new List<Sale>();
     public ICollection<Vehicle> Vehicles { get; private set; } = new List<Vehicle>();
     public ICollection<Lead> Leads { get; private set; } = new List<Lead>();
+    public CompanySettings? Settings { get; private set; }
 
     private Company() { }
 

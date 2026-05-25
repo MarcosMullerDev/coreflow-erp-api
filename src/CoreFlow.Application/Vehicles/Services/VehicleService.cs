@@ -145,7 +145,7 @@ public class VehicleService : IVehicleService
 
         if (status == VehicleStatus.Available)
         {
-            // por enquanto não temos método específico, então deixamos para criar se necessário
+            vehicle.MarkAsAvailable();
         }
         else if (status == VehicleStatus.Reserved)
         {

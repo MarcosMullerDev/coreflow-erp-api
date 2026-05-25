@@ -19,6 +19,7 @@ public class AppDbContext : DbContext
     public DbSet<VehicleImage> VehicleImages => Set<VehicleImage>();
     public DbSet<Lead> Leads => Set<Lead>();
     public DbSet<VehicleOptional> VehicleOptionals => Set<VehicleOptional>();
+    public DbSet<CompanySettings> CompanySettings => Set<CompanySettings>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Company>(entity =>
@@ -310,6 +311,53 @@ public class AppDbContext : DbContext
             entity.HasOne(o => o.Vehicle)
                 .WithMany(v => v.Optionals)
                 .HasForeignKey(o => o.VehicleId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+        modelBuilder.Entity<CompanySettings>(entity =>
+        {
+            entity.HasKey(s => s.Id);
+
+            entity.Property(s => s.StoreName)
+                .IsRequired()
+                .HasMaxLength(150);
+
+            entity.Property(s => s.Slug)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.HasIndex(s => s.Slug)
+                .IsUnique();
+
+            entity.Property(s => s.LogoUrl)
+                .HasMaxLength(500);
+
+            entity.Property(s => s.BannerUrl)
+                .HasMaxLength(500);
+
+            entity.Property(s => s.PrimaryColor)
+                .HasMaxLength(20);
+
+            entity.Property(s => s.SecondaryColor)
+                .HasMaxLength(20);
+
+            entity.Property(s => s.Whatsapp)
+                .HasMaxLength(30);
+
+            entity.Property(s => s.Instagram)
+                .HasMaxLength(150);
+
+            entity.Property(s => s.Address)
+                .HasMaxLength(250);
+
+            entity.Property(s => s.HeroTitle)
+                .HasMaxLength(150);
+
+            entity.Property(s => s.HeroSubtitle)
+                .HasMaxLength(300);
+
+            entity.HasOne(s => s.Company)
+                .WithOne(c => c.Settings)
+                .HasForeignKey<CompanySettings>(s => s.CompanyId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
     }

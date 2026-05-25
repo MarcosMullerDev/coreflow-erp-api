@@ -19,4 +19,9 @@ public class VehicleImage : BaseEntity
         FileName = fileName;
         IsPrimary = isPrimary;
     }
+    public void SetPrimary(bool isPrimary)
+    {
+        IsPrimary = isPrimary;
+        SetUpdated();
+    }
 }

@@ -83,7 +83,11 @@ public class Vehicle : BaseEntity
         Status = VehicleStatus.Sold;
         SetUpdated();
     }
-
+    public void MarkAsAvailable()
+    {
+        Status = VehicleStatus.Available;
+        SetUpdated();
+    }
     public void Reserve()
     {
         Status = VehicleStatus.Reserved;
