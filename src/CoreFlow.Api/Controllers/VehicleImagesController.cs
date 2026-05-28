@@ -4,6 +4,7 @@ using CoreFlow.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using CoreFlow.Infrastructure.Services;
 
 namespace CoreFlow.Api.Controllers;
 
@@ -14,11 +15,16 @@ public class VehicleImagesController : ControllerBase
 {
     private readonly AppDbContext _context;
     private readonly IWebHostEnvironment _environment;
+    private readonly ImageStudioService _imageStudioService;
 
-    public VehicleImagesController(AppDbContext context, IWebHostEnvironment environment)
+    public VehicleImagesController(
+        AppDbContext context,
+        IWebHostEnvironment environment,
+        ImageStudioService imageStudioService)
     {
         _context = context;
         _environment = environment;
+        _imageStudioService = imageStudioService;
     }
 
     [HttpGet]
@@ -49,13 +55,22 @@ public class VehicleImagesController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = "Admin,Manager,Stock")]
-    public async Task<IActionResult> Upload(Guid vehicleId, List<IFormFile> files)
+    public async Task<IActionResult> Upload(
+    Guid vehicleId,
+    List<IFormFile> files,
+    [FromQuery] bool applyStoreBackground = false)
     {
         var vehicle = await _context.Vehicles
             .FirstOrDefaultAsync(v => v.Id == vehicleId && !v.IsDeleted);
 
         if (vehicle is null)
             return NotFound(ApiResponse<object>.Fail("Vehicle not found."));
+
+        var companySettings = await _context.CompanySettings
+            .AsNoTracking()
+            .FirstOrDefaultAsync(s =>
+                s.CompanyId == vehicle.CompanyId &&
+                !s.IsDeleted);
 
         if (files is null || files.Count == 0)
             return BadRequest(ApiResponse<object>.Fail("No files uploaded."));
@@ -79,11 +94,33 @@ public class VehicleImagesController : ControllerBase
             if (!allowedExtensions.Contains(extension))
                 return BadRequest(ApiResponse<object>.Fail("Invalid image format."));
 
-            var fileName = $"{Guid.NewGuid()}{extension}";
+            var finalExtension = applyStoreBackground ? ".png" : extension;
+            var fileName = $"{Guid.NewGuid()}{finalExtension}";
             var filePath = Path.Combine(uploadPath, fileName);
 
-            await using var stream = new FileStream(filePath, FileMode.Create);
-            await file.CopyToAsync(stream);
+            await using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            if (
+                applyStoreBackground &&
+                companySettings is not null &&
+                !string.IsNullOrWhiteSpace(companySettings.VehiclePhotoBackgroundUrl)
+            )
+            {
+                try
+                {
+                    await _imageStudioService.ApplyStoreBackgroundAsync(
+                        filePath,
+                        companySettings.VehiclePhotoBackgroundUrl
+                    );
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"IMAGE STUDIO ERROR: {ex.Message}");
+                }
+            }
 
             var isPrimary = !alreadyHasPrimary && uploadedImages.Count == 0;
             var vehicleImage = new VehicleImage(vehicleId, fileName, isPrimary);

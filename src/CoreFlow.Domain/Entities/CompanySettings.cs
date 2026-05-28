@@ -19,7 +19,7 @@ public class CompanySettings : BaseEntity
     public string Whatsapp { get; private set; } = string.Empty;
     public string Instagram { get; private set; } = string.Empty;
     public string Address { get; private set; } = string.Empty;
-
+    public string VehiclePhotoBackgroundUrl { get; private set; } = string.Empty;
     public string HeroTitle { get; private set; }
         = "Encontre o carro ideal para você";
 
@@ -71,6 +71,11 @@ public class CompanySettings : BaseEntity
     public void SetBanner(string bannerUrl)
     {
         BannerUrl = bannerUrl;
+        SetUpdated();
+    }
+    public void SetVehiclePhotoBackground(string url)
+    {
+        VehiclePhotoBackgroundUrl = url;
         SetUpdated();
     }
 }

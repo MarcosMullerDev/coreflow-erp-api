@@ -49,7 +49,9 @@ public class PublicVehiclesController : ControllerBase
                     .Where(o => !o.IsDeleted)
                     .Select(o => o.Name),
 
-                Images = v.Images.Select(i => new
+                Images = v.Images
+                    .Where(i => !i.IsDeleted)
+                    .Select(i => new
                 {
                     i.Id,
                     i.FileName,
@@ -58,7 +60,7 @@ public class PublicVehiclesController : ControllerBase
                 }),
 
                 PrimaryImage = v.Images
-                    .Where(i => i.IsPrimary)
+                    .Where(i => i.IsPrimary && !i.IsDeleted)
                     .Select(i => $"{Request.Scheme}://{Request.Host}/uploads/vehicles/{i.FileName}")
                     .FirstOrDefault()
             })
@@ -106,7 +108,9 @@ public class PublicVehiclesController : ControllerBase
                     .Where(o => !o.IsDeleted)
                     .Select(o => o.Name),
 
-                Images = v.Images.Select(i => new
+                Images = v.Images
+                    .Where(i => !i.IsDeleted)
+                    .Select(i => new
                 {
                     i.Id,
                     i.FileName,
@@ -115,7 +119,7 @@ public class PublicVehiclesController : ControllerBase
                 }),
 
                 PrimaryImage = v.Images
-                    .Where(i => i.IsPrimary)
+                    .Where(i => i.IsPrimary && !i.IsDeleted)
                     .Select(i => $"{Request.Scheme}://{Request.Host}/uploads/vehicles/{i.FileName}")
                     .FirstOrDefault()
             })
@@ -166,7 +170,9 @@ public class PublicVehiclesController : ControllerBase
                 .Where(o => !o.IsDeleted)
                 .Select(o => o.Name),
 
-            Images = vehicle.Images.Select(i => new
+            Images = vehicle.Images
+            .Where(i => !i.IsDeleted)
+            .Select(i => new
             {
                 i.Id,
                 i.FileName,
@@ -175,7 +181,7 @@ public class PublicVehiclesController : ControllerBase
             }),
 
             PrimaryImage = vehicle.Images
-                .Where(i => i.IsPrimary)
+                .Where(i => i.IsPrimary && !i.IsDeleted)
                 .Select(i => $"{Request.Scheme}://{Request.Host}/uploads/vehicles/{i.FileName}")
                 .FirstOrDefault()
 

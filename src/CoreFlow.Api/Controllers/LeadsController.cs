@@ -26,30 +26,36 @@ public class LeadsController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var leads = await _context.Leads
-            .AsNoTracking()
-            .Include(l => l.Vehicle)
-            .Where(l => l.CompanyId == _currentUser.CompanyId && !l.IsDeleted)
-            .OrderByDescending(l => l.CreatedAt)
-            .Select(l => new
+        .AsNoTracking()
+        .Include(l => l.Vehicle)
+            .ThenInclude(v => v.Images)
+        .Where(l => l.CompanyId == _currentUser.CompanyId && !l.IsDeleted)
+        .OrderByDescending(l => l.CreatedAt)
+        .Select(l => new
+        {
+            l.Id,
+            l.Name,
+            l.Phone,
+            l.Email,
+            l.Message,
+            l.Status,
+            l.CreatedAt,
+            Vehicle = new
             {
-                l.Id,
-                l.Name,
-                l.Phone,
-                l.Email,
-                l.Message,
-                l.Status,
-                l.CreatedAt,
-                Vehicle = new
-                {
-                    l.Vehicle.Id,
-                    l.Vehicle.Brand,
-                    l.Vehicle.Model,
-                    l.Vehicle.Year,
-                    l.Vehicle.ModelYear,
-                    l.Vehicle.SalePrice
-                }
-            })
-            .ToListAsync();
+                l.Vehicle.Id,
+                l.Vehicle.Brand,
+                l.Vehicle.Model,
+                l.Vehicle.Year,
+                l.Vehicle.ModelYear,
+                l.Vehicle.SalePrice,
+                l.Vehicle.VehicleType,
+                PrimaryImage = l.Vehicle.Images
+                    .Where(i => i.IsPrimary && !i.IsDeleted)
+                    .Select(i => $"{Request.Scheme}://{Request.Host}/uploads/vehicles/{i.FileName}")
+                    .FirstOrDefault()
+            }
+        })
+        .ToListAsync();
 
         return Ok(ApiResponse<object>.Ok(leads, "Leads retrieved successfully."));
     }

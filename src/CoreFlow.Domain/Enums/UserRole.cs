@@ -6,5 +6,6 @@ public enum UserRole
     Manager = 2,
     Sales = 3,
     Finance = 4,
-    Stock = 5
+    Stock = 5,
+    SystemAdmin = 99
 }

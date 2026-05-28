@@ -73,4 +73,37 @@ public class CompanySettingsService : ICompanySettingsService
             .ToLower()
             .Replace(" ", "-");
     }
+
+    public async Task<CompanySettings> SetLogoAsync(string logoUrl)
+    {
+        var settings = await GetAsync();
+
+        settings.SetLogo(logoUrl);
+
+        await _context.SaveChangesAsync();
+
+        return settings;
+    }
+
+    public async Task<CompanySettings> SetBannerAsync(string bannerUrl)
+    {
+        var settings = await GetAsync();
+
+        settings.SetBanner(bannerUrl);
+
+        await _context.SaveChangesAsync();
+
+        return settings;
+    }
+
+    public async Task<CompanySettings> SetVehiclePhotoBackgroundAsync(string url)
+    {
+        var settings = await GetAsync();
+
+        settings.SetVehiclePhotoBackground(url);
+
+        await _context.SaveChangesAsync();
+
+        return settings;
+    }
 }

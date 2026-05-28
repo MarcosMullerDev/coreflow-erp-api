@@ -17,12 +17,11 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "SystemAdmin,Admin")]
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterUserRequest request)
     {
         var response = await _authService.RegisterAsync(request);
-
         return Ok(ApiResponse<object>.Ok(response, "User registered successfully."));
     }
 
@@ -30,7 +29,6 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Login(LoginRequest request)
     {
         var response = await _authService.LoginAsync(request);
-
         return Ok(ApiResponse<object>.Ok(response, "Login successful."));
     }
 }

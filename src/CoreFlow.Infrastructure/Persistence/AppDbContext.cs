@@ -20,6 +20,8 @@ public class AppDbContext : DbContext
     public DbSet<Lead> Leads => Set<Lead>();
     public DbSet<VehicleOptional> VehicleOptionals => Set<VehicleOptional>();
     public DbSet<CompanySettings> CompanySettings => Set<CompanySettings>();
+    public DbSet<LeadNote> LeadNotes => Set<LeadNote>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Company>(entity =>
@@ -59,6 +61,9 @@ public class AppDbContext : DbContext
             entity.Property(u => u.Email)
                 .IsRequired()
                 .HasMaxLength(150);
+
+            entity.HasIndex(u => u.Email)
+                .IsUnique();
 
             entity.Property(u => u.PasswordHash)
                 .IsRequired();
@@ -359,6 +364,40 @@ public class AppDbContext : DbContext
                 .WithOne(c => c.Settings)
                 .HasForeignKey<CompanySettings>(s => s.CompanyId)
                 .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<LeadNote>(entity =>
+        {
+            entity.HasKey(n => n.Id);
+
+            entity.Property(n => n.Note)
+                .IsRequired()
+                .HasMaxLength(1000);
+
+            entity.Property(n => n.FollowUpAt);
+
+            entity.Property(n => n.CreatedAt)
+                .IsRequired();
+
+            entity.Property(n => n.UpdatedAt);
+
+            entity.Property(n => n.IsDeleted)
+                .IsRequired();
+
+            entity.HasOne(n => n.Company)
+                .WithMany()
+                .HasForeignKey(n => n.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(n => n.Lead)
+                .WithMany()
+                .HasForeignKey(n => n.LeadId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(n => n.User)
+                .WithMany()
+                .HasForeignKey(n => n.UserId)
+                .OnDelete(DeleteBehavior.SetNull);
         });
     }
 }

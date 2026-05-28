@@ -32,14 +32,18 @@ public class Company : BaseEntity
         Name = name;
         Email = email;
         Phone = phone;
+        SetUpdated();
+    }
 
+    public void Activate()
+    {
+        IsActive = true;
         SetUpdated();
     }
 
     public void Deactivate()
     {
         IsActive = false;
-
         SetUpdated();
     }
 }

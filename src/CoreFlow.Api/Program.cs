@@ -25,6 +25,8 @@ using CoreFlow.Application.Vehicles.Repositories;
 using CoreFlow.Application.Vehicles.Services;
 using CoreFlow.Application.CompanySettings.Services;
 using CoreFlow.Infrastructure.Services;
+using CoreFlow.Application.Admin.Services;
+using CoreFlow.Infrastructure.Admin.Services;
 
 var builder = WebApplication.CreateBuilder(args);
     
@@ -37,6 +39,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
@@ -109,6 +112,7 @@ builder.Services.AddScoped<ISaleService, SaleService>();
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
 builder.Services.AddScoped<ICompanySettingsService, CompanySettingsService>();
+builder.Services.AddScoped<ImageStudioService>();
 
 builder.Services.AddCors(options =>
 {
@@ -122,7 +126,6 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-
 
 app.UseStaticFiles();
 app.UseSwagger();
